@@ -33,7 +33,7 @@ export default function Button(props: ButtonProps) {
 
   if ("href" in props && props.href) {
     return (
-      <Link href={props.href} className={classes}>
+      <Link href={props.href as any} className={classes}>
         {children}
       </Link>
     );
