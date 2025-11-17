@@ -8,11 +8,13 @@ export default function HeroParallaxBg() {
     const el = ref.current;
     if (!el) return;
     function onMove(e: MouseEvent) {
+      const currentEl = ref.current;
+      if (!currentEl) return;
       const { innerWidth, innerHeight } = window;
       const x = (e.clientX / innerWidth - 0.5) * 10; // -5 ~ 5
       const y = (e.clientY / innerHeight - 0.5) * 10; // -5 ~ 5
-      el.style.setProperty("--tx", `${x}px`);
-      el.style.setProperty("--ty", `${y}px`);
+      currentEl.style.setProperty("--tx", `${x}px`);
+      currentEl.style.setProperty("--ty", `${y}px`);
     }
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
