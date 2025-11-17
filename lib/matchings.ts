@@ -1,4 +1,4 @@
-import { Matching } from "@types/matching";
+import { Matching } from "../types/matching";
 
 export const MATCHINGS: Matching[] = [
   {
