@@ -6,14 +6,14 @@ function Header() {
   return (
     <header className="sticky top-0 z-40 bg-[#000000]/95 backdrop-blur-md border-b border-[#1a1a1a]">
       <div className="container-responsive flex items-center justify-between h-16">
-        <Link href="/" className="font-bold text-xl text-[#ffffff]">
+        <Link href={"/" as any} className="font-bold text-xl text-[#ffffff]">
           {BRAND.short}
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={item.href as any}
               className="text-sm font-medium text-[#b3b3b3] hover:text-[#ffffff] transition-colors"
             >
               {item.label}
