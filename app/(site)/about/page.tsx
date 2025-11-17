@@ -1,0 +1,56 @@
+import Section from "@components/Section";
+
+export default function AboutPage() {
+  return (
+    <>
+      <Section title="퍼나르파트너스 이야기" subtitle="브랜드/대표 소개">
+        <div className="space-y-4 text-navy/80">
+          <p>
+            우리는 실제로 ‘아롱하다’라는 매장을 운영하며 블로거 초청을 직접 해본 경험이 있습니다.
+            자영업자의 입장에서 무엇이 부담스럽고, 무엇이 도움이 되는지 잘 알고 있습니다.
+          </p>
+          <p>
+            그래서 사장님 눈높이의 블로그 초청 대행을 시작했습니다. 과장 없이, 가게의 본질이 전달되도록
+            실전형 프로세스를 설계했습니다.
+          </p>
+        </div>
+      </Section>
+
+      <Section title="미션 & 비전">
+        <div className="rounded-xl bg-white border border-navy/10 p-6">
+          <p className="font-semibold">
+            우리는 단순히 리뷰를 늘리는 것을 목표로 하지 않습니다.
+          </p>
+          <p className="mt-2 text-navy/80">
+            사장님의 시간을 아끼고, 가게의 스토리가 제대로 전달되도록 돕는 파트너가 되겠습니다.
+          </p>
+        </div>
+      </Section>
+
+      <Section title="가치(Value)">
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            "정직한 리뷰 문화",
+            "자영업자와의 동행",
+            "데이터 기반 개선",
+            "장기적인 관계"
+          ].map((v) => (
+            <li key={v} className="rounded-lg bg-white border border-navy/10 p-4 text-sm">
+              {v}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section title="대표 한 마디">
+        <div className="rounded-xl bg-navy text-white p-8">
+          <p className="text-lg font-semibold">
+            “생각 말고, 실행하세요. 퍼나르가 알려드릴게요.”
+          </p>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+
