@@ -28,7 +28,8 @@ export default function Button(props: ButtonProps) {
     ghost: "btn-secondary bg-transparent border-transparent hover:bg-[#F9FAFB]"
   } as const;
 
-  const classes = `${baseStyles[variant]} ${className}`;
+  const variantKey = variant as keyof typeof baseStyles;
+  const classes = `${baseStyles[variantKey]} ${className}`;
 
   if ("href" in props && props.href) {
     return (
