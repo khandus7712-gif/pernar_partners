@@ -43,8 +43,16 @@ function Footer() {
             <li>카카오 채널: 카카오에서 '퍼나르파트너스' 검색</li>
           </ul>
         </div>
-        <div className="text-sm text-[#b3b3b3]">
-          © 퍼나르파트너스. All rights reserved.
+        <div className="text-sm text-[#b3b3b3] space-y-2">
+          <div>© 퍼나르파트너스. All rights reserved.</div>
+          <div className="flex gap-4 mt-4">
+            <Link href={"/privacy" as any} className="hover:text-[#ffffff] transition-colors">
+              개인정보보호정책
+            </Link>
+            <Link href={"/terms" as any} className="hover:text-[#ffffff] transition-colors">
+              이용약관
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
