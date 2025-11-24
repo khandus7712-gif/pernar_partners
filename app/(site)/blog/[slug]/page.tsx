@@ -21,17 +21,37 @@ export default function BlogDetailPage({ params }: Props) {
         <article className="prose prose-sm sm:prose lg:prose-lg max-w-none">
           <h1>{post.title}</h1>
           <p className="text-navy/70">{post.date} · {post.tags.join(", ")}</p>
-          <p>
-            본문 더미 텍스트입니다. 사장님 가게의 강점이 제대로 전달되도록, 사진과 글 기준을 명확히
-            정하고 리뷰가 자연스럽게 올라오도록 돕는 것이 핵심입니다.
-          </p>
-          <p>
-            블로거 초청은 단기 이벤트가 아니라, 가게의 스토리를 차곡차곡 쌓는 과정입니다. 
-            그래서 과장 대신 진심을 담고, 꾸준히 점검하며 개선합니다.
-          </p>
-          <p>
-            더 자세한 상담이 필요하시다면 아래 버튼을 눌러 문의해 주세요.
-          </p>
+          <div className="text-[#b3b3b3] leading-relaxed space-y-4">
+            {((post as any).content ? (
+              (post as any).content.split('\n').map((line: string, idx: number) => {
+                if (line.startsWith('## ')) {
+                  return <h2 key={idx} className="text-2xl font-bold text-[#ffffff] mt-8 mb-4">{line.replace('## ', '')}</h2>;
+                } else if (line.startsWith('👉 ')) {
+                  return <p key={idx} className="font-semibold text-[#ffffff] mt-4">{line}</p>;
+                } else if (line.startsWith('- ')) {
+                  return <li key={idx} className="ml-4 list-disc">{line.replace('- ', '')}</li>;
+                } else if (line.trim() === '') {
+                  return <br key={idx} />;
+                } else {
+                  return <p key={idx} className="mb-3">{line}</p>;
+                }
+              })
+            ) : (
+              <>
+                <p>
+                  본문 더미 텍스트입니다. 사장님 가게의 강점이 제대로 전달되도록, 사진과 글 기준을 명확히
+                  정하고 리뷰가 자연스럽게 올라오도록 돕는 것이 핵심입니다.
+                </p>
+                <p>
+                  블로거 초청은 단기 이벤트가 아니라, 가게의 스토리를 차곡차곡 쌓는 과정입니다. 
+                  그래서 과장 대신 진심을 담고, 꾸준히 점검하며 개선합니다.
+                </p>
+                <p>
+                  더 자세한 상담이 필요하시다면 아래 버튼을 눌러 문의해 주세요.
+                </p>
+              </>
+            ))}
+          </div>
         </article>
       </Section>
       <Section>
@@ -49,5 +69,6 @@ export default function BlogDetailPage({ params }: Props) {
     </>
   );
 }
+
 
 
