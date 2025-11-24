@@ -20,20 +20,47 @@ const initialValues: FormValues = {
 export default function ContactForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string>("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     const { name, value } = e.target;
     setValues((v) => ({ ...v, [name]: value }));
+    setError(""); // 에러 메시지 초기화
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log("[CONTACT_SUBMIT]", values);
-    setSubmitted(true);
-    setValues(initialValues);
-    setTimeout(() => setSubmitted(false), 3000);
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "문의 전송에 실패했습니다.");
+      }
+
+      setSubmitted(true);
+      setValues(initialValues);
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "문의 전송 중 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -101,12 +128,16 @@ export default function ContactForm() {
       </div>
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-primary"
+        disabled={isSubmitting}
+        className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        무료 상담 신청하기
+        {isSubmitting ? "전송 중..." : "무료 상담 신청하기"}
       </button>
       {submitted && (
-        <p className="text-sm text-green-700">제출 완료! 빠르게 연락드리겠습니다.</p>
+        <p className="text-sm text-green-600 font-medium">✅ 제출 완료! 빠르게 연락드리겠습니다.</p>
+      )}
+      {error && (
+        <p className="text-sm text-red-600 font-medium">❌ {error}</p>
       )}
     </form>
   );
