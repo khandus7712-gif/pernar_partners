@@ -36,6 +36,8 @@ export default function ContactForm() {
     setIsSubmitting(true);
     setError("");
 
+    console.log("[ContactForm] 제출 시작:", values);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -45,18 +47,23 @@ export default function ContactForm() {
         body: JSON.stringify(values),
       });
 
+      console.log("[ContactForm] API 응답 상태:", response.status);
+
       const data = await response.json();
+      console.log("[ContactForm] API 응답 데이터:", data);
 
       if (!response.ok) {
         throw new Error(data.error || "문의 전송에 실패했습니다.");
       }
 
+      console.log("[ContactForm] 성공! Google Sheets에 저장되었습니다.");
       setSubmitted(true);
       setValues(initialValues);
       setTimeout(() => {
         setSubmitted(false);
       }, 5000);
     } catch (err) {
+      console.error("[ContactForm] 에러 발생:", err);
       setError(err instanceof Error ? err.message : "문의 전송 중 오류가 발생했습니다.");
     } finally {
       setIsSubmitting(false);
