@@ -46,7 +46,7 @@ export default function BloggerApplyForm() {
             value={values.nickname}
             onChange={handleChange}
             required
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
         <div>
@@ -56,7 +56,7 @@ export default function BloggerApplyForm() {
             value={values.blogUrl}
             onChange={handleChange}
             required
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="https://"
           />
         </div>
@@ -68,7 +68,7 @@ export default function BloggerApplyForm() {
             name="category"
             value={values.category}
             onChange={handleChange}
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="맛집/카페/디저트 등"
           />
         </div>
@@ -78,7 +78,7 @@ export default function BloggerApplyForm() {
             name="region"
             value={values.region}
             onChange={handleChange}
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="창원/경남/부산 등"
           />
         </div>
@@ -91,7 +91,7 @@ export default function BloggerApplyForm() {
           value={values.email}
           onChange={handleChange}
           required
-          className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           placeholder="you@example.com"
         />
       </div>
@@ -107,6 +107,7 @@ export default function BloggerApplyForm() {
     </form>
   );
 }
+
 
 
 

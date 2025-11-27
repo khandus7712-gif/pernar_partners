@@ -110,3 +110,4 @@ GOOGLE_SHEET_ID=your-spreadsheet-id-here
 - Vercel의 Environment Variables 사용
 - Service Account는 최소 권한만 부여
 
+

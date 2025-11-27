@@ -80,7 +80,7 @@ export default function ContactForm() {
             value={values.name}
             onChange={handleChange}
             required
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="예) 아롱하다"
           />
         </div>
@@ -90,7 +90,7 @@ export default function ContactForm() {
             name="category"
             value={values.category}
             onChange={handleChange}
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="예) 전골/창원 상남동"
           />
         </div>
@@ -103,7 +103,7 @@ export default function ContactForm() {
             value={values.contact}
             onChange={handleChange}
             required
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="전화 또는 이메일"
           />
         </div>
@@ -113,7 +113,7 @@ export default function ContactForm() {
             name="interest"
             value={values.interest}
             onChange={handleChange}
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="">선택</option>
             <option value="invite">블로거 초청 대행</option>
@@ -124,14 +124,14 @@ export default function ContactForm() {
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">자유롭게 남기실 내용</label>
-        <textarea
-          name="message"
-          value={values.message}
-          onChange={handleChange}
-          rows={5}
-          className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-          placeholder="현재 상황과 고민을 적어 주세요."
-        />
+          <textarea
+            name="message"
+            value={values.message}
+            onChange={handleChange}
+            rows={5}
+            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
+            placeholder="현재 상황과 고민을 적어 주세요."
+          />
       </div>
       <button
         type="submit"
