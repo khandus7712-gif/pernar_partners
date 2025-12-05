@@ -24,7 +24,7 @@ export default function HomePage() {
               <h1 className="hero-title hero-main-headline">
                 <span className="block">희망을 퍼나르는</span>
                 <span className="block">마케팅,</span>
-                <strong className="block hero-brand-name">퍼나르파트너스</strong>
+                <strong className="block hero-brand-name">퍼나르마케팅</strong>
               </h1>
               <p className="hero-subtitle">
                 300명 이상의 검증된 블로거 네트워크로,
@@ -81,7 +81,7 @@ export default function HomePage() {
       </Section>
 
       {/* Why us */}
-      <Section title="왜 퍼나르파트너스인가요?">
+      <Section title="왜 퍼나르마케팅인가요?">
         <div className="services-grid">
           {DIFFERENTIATORS.map((d, index) => (
             <ScrollReveal key={d.title} delay={index * 100}>

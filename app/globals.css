@@ -2,6 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cursor Follower */
+.cursor-follower {
+	position: fixed;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: rgba(255, 106, 0, 0.8);
+	border: 2px solid rgba(255, 255, 255, 0.3);
+	pointer-events: none;
+	z-index: 9999;
+	transform: translate(-50%, -50%);
+	transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+	            opacity 0.15s ease-out,
+	            width 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+	            height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	mix-blend-mode: difference;
+	will-change: transform;
+}
+
+.cursor-follower::before {
+	content: "";
+	position: absolute;
+	inset: -4px;
+	border-radius: 50%;
+	background: rgba(255, 106, 0, 0.2);
+	animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+	0%, 100% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+	50% {
+		transform: scale(1.5);
+		opacity: 0;
+	}
+}
+
+/* Hover 효과 */
+.cursor-follower.cursor-hover {
+	width: 40px;
+	height: 40px;
+	background: rgba(255, 106, 0, 0.6);
+	border-width: 3px;
+}
+
+/* 기본 커서 숨기기 */
+* {
+	cursor: none !important;
+}
+
+a, button, [role="button"], input, textarea, select {
+	cursor: none !important;
+}
+
+/* 모바일에서는 커서 팔로워 비활성화 */
+@media (max-width: 768px) {
+	.cursor-follower {
+		display: none;
+	}
+	* {
+		cursor: auto !important;
+	}
+}
+
 :root {
 	/* Pure Black & White - SHARE X Style */
 	--bg-page: #000000; /* 순수 블랙 */
@@ -130,7 +196,19 @@ strong {
 	position: relative;
 	overflow: hidden;
 }
-/* 그라디언트 효과 제거 - 미니멀 유지 */
+.hero-bg::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, rgba(255, 106, 0, 0.03) 0%, rgba(255, 148, 77, 0.03) 50%, rgba(255, 106, 0, 0.03) 100%);
+	opacity: 0.5;
+	pointer-events: none;
+	z-index: 0;
+}
+.hero-bg > * {
+	position: relative;
+	z-index: 1;
+}
 
 .hero-container {
 	position: relative;
@@ -420,11 +498,12 @@ strong {
 	border-radius: 16px;
 	padding: 40px 32px;
 	box-shadow: none; /* 그림자 제거 */
-	transition: all 0.3s ease;
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	position: relative;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	cursor: pointer;
 }
 @media (min-width: 768px) {
 	.card {
@@ -437,18 +516,33 @@ strong {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 2px;
-	background: var(--primary); /* 오렌지 단색 */
+	height: 3px;
+	background: linear-gradient(90deg, var(--primary), var(--primary-hover));
 	opacity: 0;
-	transition: opacity 0.3s ease;
+	transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: scaleX(0);
+	transform-origin: left;
+}
+.card::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, rgba(255, 106, 0, 0.05) 0%, rgba(255, 148, 77, 0.05) 100%);
+	opacity: 0;
+	transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	pointer-events: none;
 }
 .card:hover {
-	box-shadow: none;
-	transform: translateY(-4px);
-	border-color: var(--border);
+	box-shadow: 0 8px 32px rgba(255, 106, 0, 0.15);
+	transform: translateY(-8px) scale(1.02);
+	border-color: rgba(255, 106, 0, 0.3);
 	background: var(--bg-card);
 }
 .card:hover::before {
+	opacity: 1;
+	transform: scaleX(1);
+}
+.card:hover::after {
 	opacity: 1;
 }
 
@@ -459,6 +553,9 @@ strong {
 	margin-bottom: 16px;
 	margin-top: 0;
 	letter-spacing: -0.01em;
+	transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	z-index: 1;
 }
 @media (min-width: 768px) {
 	.card-title {
@@ -466,17 +563,51 @@ strong {
 		margin-bottom: 20px;
 	}
 }
+.card:hover .card-title {
+	color: var(--primary);
+}
 
 .card-desc {
 	font-size: 16px;
 	line-height: 1.75;
 	color: var(--text-sub);
 	margin-top: 0;
+	transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	z-index: 1;
 }
 @media (min-width: 768px) {
 	.card-desc {
 		font-size: 18px;
 		line-height: 1.8;
+	}
+}
+.card:hover .card-desc {
+	color: var(--text-main);
+}
+
+/* 서비스 카드 스타일 */
+.service-card {
+	min-height: 280px;
+}
+@media (min-width: 768px) {
+	.service-card {
+		min-height: 320px;
+	}
+}
+
+/* 강점 카드 스타일 (높이 증가) */
+.strength-card {
+	min-height: 240px;
+}
+@media (min-width: 768px) {
+	.strength-card {
+		min-height: 280px;
+	}
+}
+@media (min-width: 1024px) {
+	.strength-card {
+		min-height: 300px;
 	}
 }
 
@@ -504,9 +635,11 @@ strong {
 	}
 }
 .card:hover .card-icon {
-	transform: scale(1.05);
+	transform: scale(1.1) rotate(5deg);
 	border-color: var(--primary); /* 오렌지 테두리 */
 	color: var(--primary); /* 오렌지 아이콘 */
+	background: rgba(255, 106, 0, 0.1);
+	box-shadow: 0 4px 16px rgba(255, 106, 0, 0.2);
 }
 
 /* Button styles - Pure Black & White */
@@ -542,8 +675,25 @@ strong {
 }
 .btn-primary:hover {
 	background: var(--primary-hover);
-	transform: translateY(-2px);
-	box-shadow: 0 4px 16px rgba(255, 106, 0, 0.3);
+	transform: translateY(-3px) scale(1.02);
+	box-shadow: 0 8px 24px rgba(255, 106, 0, 0.4);
+}
+.btn-primary:active {
+	transform: translateY(-1px) scale(0.98);
+}
+
+/* CTA 버튼 펄스 애니메이션 */
+@keyframes pulse-glow {
+	0%, 100% {
+		box-shadow: 0 4px 16px rgba(255, 106, 0, 0.3);
+	}
+	50% {
+		box-shadow: 0 4px 24px rgba(255, 106, 0, 0.5);
+	}
+}
+
+.hero-cta-primary-large {
+	animation: pulse-glow 3s ease-in-out infinite;
 }
 
 .btn-secondary {
@@ -563,9 +713,12 @@ strong {
 .btn-secondary:hover {
 	border-color: var(--text-main);
 	color: var(--text-main);
-	background: transparent;
+	background: rgba(255, 255, 255, 0.05);
 	transform: translateY(-2px);
-	box-shadow: none;
+	box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+.btn-secondary:active {
+	transform: translateY(0);
 }
 
 .hero-cta-messenger {
@@ -594,6 +747,22 @@ strong {
 	z-index: 1;
 }
 
+/* 섹션 Fade 애니메이션 */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.section-spacing {
+	animation: fadeInUp 0.6s ease-out;
+}
+
 /* Services grid - SHARE X Style */
 .services-grid {
 	display: grid;
@@ -608,6 +777,37 @@ strong {
 @media (min-width: 1024px) {
 	.services-grid {
 		gap: 48px;
+	}
+}
+
+/* 강점 섹션 5개 그리드 (2-2-1 또는 2-3 배치) */
+.strengths-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 32px;
+}
+@media (min-width: 768px) {
+	.strengths-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 40px;
+	}
+}
+@media (min-width: 1024px) {
+	.strengths-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 48px;
+	}
+}
+@media (min-width: 1280px) {
+	.strengths-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.strengths-grid > *:nth-child(4),
+	.strengths-grid > *:nth-child(5) {
+		grid-column: span 1;
+	}
+	.strengths-grid > *:nth-child(5) {
+		grid-column: 2;
 	}
 }
 

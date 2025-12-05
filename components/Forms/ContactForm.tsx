@@ -1,42 +1,30 @@
 "use client";
+
 import { useState } from "react";
-
-type FormValues = {
-  name: string;
-  category: string;
-  contact: string;
-  interest: string;
-  message: string;
-};
-
-const initialValues: FormValues = {
-  name: "",
-  category: "",
-  contact: "",
-  interest: "",
-  message: ""
-};
+import Button from "@components/Button";
 
 export default function ContactForm() {
-  const [values, setValues] = useState<FormValues>(initialValues);
-  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    businessType: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string>("");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) {
-    const { name, value } = e.target;
-    setValues((v) => ({ ...v, [name]: value }));
-    setError(""); // 에러 메시지 초기화
-  }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError("");
-
-    console.log("[ContactForm] 제출 시작:", values);
+    setSubmitStatus("idle");
 
     try {
       const response = await fetch("/api/contact", {
@@ -44,111 +32,138 @@ export default function ContactForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(formData),
       });
 
-      console.log("[ContactForm] API 응답 상태:", response.status);
-
-      const data = await response.json();
-      console.log("[ContactForm] API 응답 데이터:", data);
-
-      if (!response.ok) {
-        throw new Error(data.error || "문의 전송에 실패했습니다.");
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          businessType: "",
+          message: "",
+        });
+      } else {
+        setSubmitStatus("error");
       }
-
-      console.log("[ContactForm] 성공! Google Sheets에 저장되었습니다.");
-      setSubmitted(true);
-      setValues(initialValues);
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 5000);
-    } catch (err) {
-      console.error("[ContactForm] 에러 발생:", err);
-      setError(err instanceof Error ? err.message : "문의 전송 중 오류가 발생했습니다.");
+    } catch (error) {
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">상호명</label>
-          <input
-            name="name"
-            value={values.name}
-            onChange={handleChange}
-            required
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="예) 아롱하다"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">업종/지역</label>
-          <input
-            name="category"
-            value={values.category}
-            onChange={handleChange}
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="예) 전골/창원 상남동"
-          />
-        </div>
-      </div>
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">연락처</label>
-          <input
-            name="contact"
-            value={values.contact}
-            onChange={handleChange}
-            required
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="전화 또는 이메일"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">관심 서비스</label>
-          <select
-            name="interest"
-            value={values.interest}
-            onChange={handleChange}
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <option value="">선택</option>
-            <option value="invite">블로거 초청 대행</option>
-            <option value="quality">리뷰/콘텐츠 퀄리티 관리</option>
-            <option value="report">결과 리포트/다음 액션</option>
-          </select>
-        </div>
-      </div>
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium mb-1">자유롭게 남기실 내용</label>
-          <textarea
-            name="message"
-            value={values.message}
-            onChange={handleChange}
-            rows={5}
-            className="w-full rounded-md border border-navy/20 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="현재 상황과 고민을 적어 주세요."
-          />
+        <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+          이름 *
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white focus:outline-none focus:border-[#FF6A00]"
+          placeholder="홍길동"
+        />
       </div>
-      <button
+
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+          이메일 *
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white focus:outline-none focus:border-[#FF6A00]"
+          placeholder="example@email.com"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+          전화번호 *
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          required
+          value={formData.phone}
+          onChange={handleChange}
+          className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white focus:outline-none focus:border-[#FF6A00]"
+          placeholder="010-1234-5678"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="businessType" className="block text-sm font-medium text-gray-300 mb-2">
+          업종 *
+        </label>
+        <select
+          id="businessType"
+          name="businessType"
+          required
+          value={formData.businessType}
+          onChange={handleChange}
+          className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white focus:outline-none focus:border-[#FF6A00]"
+        >
+          <option value="">선택해주세요</option>
+          <option value="restaurant">식당</option>
+          <option value="cafe">카페</option>
+          <option value="retail">소매업</option>
+          <option value="construction">공사업체</option>
+          <option value="demolition">철거업</option>
+          <option value="equipment">장비업</option>
+          <option value="other">기타</option>
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+          문의 내용 *
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={5}
+          value={formData.message}
+          onChange={handleChange}
+          className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white focus:outline-none focus:border-[#FF6A00] resize-none"
+          placeholder="상담을 원하시는 내용을 자세히 적어주세요."
+        />
+      </div>
+
+      {submitStatus === "success" && (
+        <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400">
+          문의가 성공적으로 전송되었습니다. 빠른 시일 내에 연락드리겠습니다.
+        </div>
+      )}
+
+      {submitStatus === "error" && (
+        <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400">
+          전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.
+        </div>
+      )}
+
+      <Button
         type="submit"
+        variant="primary"
+        className="w-full"
         disabled={isSubmitting}
-        className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isSubmitting ? "전송 중..." : "무료 상담 신청하기"}
-      </button>
-      {submitted && (
-        <p className="text-sm text-green-600 font-medium">✅ 제출 완료! 빠르게 연락드리겠습니다.</p>
-      )}
-      {error && (
-        <p className="text-sm text-red-600 font-medium">❌ {error}</p>
-      )}
+        {isSubmitting ? "전송 중..." : "문의하기"}
+      </Button>
     </form>
   );
 }
-
-
 

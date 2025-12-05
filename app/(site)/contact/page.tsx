@@ -29,7 +29,7 @@ export default function ContactPage() {
           </li>
           <li className="rounded-lg bg-white border border-navy/10 p-4">
             <div className="font-semibold">카카오 채널</div>
-            <div className="text-sm text-navy/80">카카오에서 '퍼나르파트너스' 검색</div>
+            <div className="text-sm text-navy/80">카카오에서 '퍼나르마케팅' 검색</div>
           </li>
         </ul>
       </Section>

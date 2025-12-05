@@ -3,7 +3,7 @@ import Section from "@components/Section";
 export default function AboutPage() {
   return (
     <>
-      <Section title="퍼나르파트너스 이야기" subtitle="브랜드/대표 소개">
+      <Section title="퍼나르마케팅 이야기" subtitle="브랜드/대표 소개">
         <div className="space-y-4 text-navy/80">
           <p>
             우리는 실제로 ‘아롱하다’라는 매장을 운영하며 블로거 초청을 직접 해본 경험이 있습니다.

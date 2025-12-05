@@ -28,7 +28,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           ))}
         </nav>
         <div className="mt-auto text-xs text-white/40">
-          © {new Date().getFullYear()} 퍼나르파트너스
+          © {new Date().getFullYear()} 퍼나르마케팅
         </div>
       </aside>
       <div className="flex flex-col">
