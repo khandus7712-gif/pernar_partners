@@ -25,11 +25,48 @@ git push origin main
 
 Vercel 대시보드 → Settings → Environment Variables에서 추가:
 
+#### 필수 환경 변수
+
 ```
 GOOGLE_SHEET_ID=10EFNv6QNMJtodYHbmxBeQ5iDjpCwP3M2yx9GQLfYa0M
+GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account@project-id.iam.gserviceaccount.com
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
 ```
 
-(필요한 다른 환경 변수도 추가)
+#### Google Service Account 설정 방법
+
+1. **Google Cloud Console에서 프로젝트 생성/선택**
+   - https://console.cloud.google.com 접속
+   - 프로젝트 선택 또는 새 프로젝트 생성
+
+2. **Google Sheets API 활성화**
+   - API 및 서비스 → 라이브러리
+   - "Google Sheets API" 검색 후 활성화
+
+3. **Service Account 생성**
+   - API 및 서비스 → 사용자 인증 정보
+   - "사용자 인증 정보 만들기" → "서비스 계정" 선택
+   - 서비스 계정 이름 입력 후 생성
+   - 역할은 "편집자" 또는 "소유자" 권한 부여
+
+4. **Service Account 키 생성**
+   - 생성된 서비스 계정 클릭
+   - "키" 탭 → "키 추가" → "JSON 만들기"
+   - 다운로드된 JSON 파일에서 다음 정보 추출:
+     - `client_email`: `GOOGLE_SERVICE_ACCOUNT_EMAIL`에 입력
+     - `private_key`: `GOOGLE_PRIVATE_KEY`에 입력 (전체 키, 줄바꿈 포함)
+
+5. **Google Sheets에 Service Account 공유**
+   - Google Sheets 문서 열기
+   - "공유" 버튼 클릭
+   - Service Account 이메일 주소 추가 (편집 권한)
+
+6. **시트 준비**
+   - Google Sheets에 "문의" 시트 생성 (없으면 자동 생성되지 않음)
+   - 첫 번째 행에 헤더 추가 (선택사항):
+     ```
+     날짜/시간 | 유형 | 이름 | 이메일 | 전화번호 | 업종 | 메시지
+     ```
 
 ### 4. 도메인 연결 (pernar.kr)
 
