@@ -4,9 +4,9 @@ export default function AboutPage() {
   return (
     <>
       <Section title="퍼나르마케팅 이야기" subtitle="브랜드/대표 소개">
-        <div className="space-y-4 text-navy/80">
+        <div className="space-y-4 text-gray-400">
           <p>
-            우리는 실제로 ‘아롱하다’라는 매장을 운영하며 블로거 초청을 직접 해본 경험이 있습니다.
+            우리는 실제로 '아롱하다'라는 매장을 운영하며 블로거 초청을 직접 해본 경험이 있습니다.
             자영업자의 입장에서 무엇이 부담스럽고, 무엇이 도움이 되는지 잘 알고 있습니다.
           </p>
           <p>
@@ -17,11 +17,11 @@ export default function AboutPage() {
       </Section>
 
       <Section title="미션 & 비전">
-        <div className="rounded-xl bg-white border border-navy/10 p-6">
-          <p className="font-semibold">
+        <div className="rounded-xl bg-[#0a0a0a] border border-[#1a1a1a] p-6">
+          <p className="font-semibold text-white">
             우리는 단순히 리뷰를 늘리는 것을 목표로 하지 않습니다.
           </p>
-          <p className="mt-2 text-navy/80">
+          <p className="mt-2 text-gray-400">
             사장님의 시간을 아끼고, 가게의 스토리가 제대로 전달되도록 돕는 파트너가 되겠습니다.
           </p>
         </div>
@@ -35,7 +35,7 @@ export default function AboutPage() {
             "데이터 기반 개선",
             "장기적인 관계"
           ].map((v) => (
-            <li key={v} className="rounded-lg bg-white border border-navy/10 p-4 text-sm">
+            <li key={v} className="rounded-lg bg-[#0a0a0a] border border-[#1a1a1a] p-4 text-sm text-gray-300">
               {v}
             </li>
           ))}
@@ -43,15 +43,13 @@ export default function AboutPage() {
       </Section>
 
       <Section title="대표 한 마디">
-        <div className="rounded-xl bg-navy text-white p-8">
+        <div className="rounded-xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-[#334155] text-white p-8">
           <p className="text-lg font-semibold">
-            “생각 말고, 실행하세요. 퍼나르가 알려드릴게요.”
+            "생각 말고, 실행하세요. 퍼나르가 알려드릴게요."
           </p>
         </div>
       </Section>
     </>
   );
 }
-
-
 

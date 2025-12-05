@@ -7,7 +7,7 @@ export default function NetworkPage() {
   return (
     <>
       <Section title="300명 이상의 검증된 블로거 네트워크" subtitle="네트워크 개요">
-        <p className="text-navy/80">
+        <p className="text-gray-400">
           지역, 카테고리, 사진/글 퀄리티 등을 기준으로 선별된 블로거와 함께합니다. 
           가게의 이야기가 왜곡되지 않도록 명확한 가이드를 공유합니다.
         </p>
@@ -17,14 +17,14 @@ export default function NetworkPage() {
         <div className="grid md:grid-cols-3 gap-6">
           <Card title="총 인원" icon="👥" description={`${NETWORK_STATS.total}+`} />
           <Card title="주요 카테고리" icon="🏷️">
-            <ul className="text-sm text-navy/80 space-y-1 mt-2">
+            <ul className="text-sm text-gray-400 space-y-1 mt-2">
               {NETWORK_STATS.categories.map((c) => (
                 <li key={c.label}>{c.label}: {c.value}%</li>
               ))}
             </ul>
           </Card>
           <Card title="지역 분포" icon="🗺️">
-            <ul className="text-sm text-navy/80 space-y-1 mt-2">
+            <ul className="text-sm text-gray-400 space-y-1 mt-2">
               {NETWORK_STATS.regions.map((r) => (
                 <li key={r.label}>{r.label}: {r.value}%</li>
               ))}
@@ -47,13 +47,11 @@ export default function NetworkPage() {
       </Section>
 
       <Section title="블로거 파트너 신청">
-        <div className="rounded-xl bg-white border border-navy/10 p-6">
+        <div className="rounded-xl bg-[#0a0a0a] border border-[#1a1a1a] p-6">
           <BloggerApplyForm />
         </div>
       </Section>
     </>
   );
 }
-
-
 

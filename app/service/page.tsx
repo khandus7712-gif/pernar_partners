@@ -6,7 +6,7 @@ export default function ServicePage() {
   return (
     <>
       <Section title="블로그 초청 대행, 이렇게 진행됩니다" subtitle="서비스 개요">
-        <p className="text-navy/80">
+        <p className="text-gray-400">
           사장님 가게의 상황과 목표에 맞춰 블로거를 선별하고, 방문과 리뷰가 자연스럽게 이루어지도록
           메시지·일정을 조율합니다. 과장된 홍보가 아니라, 가게의 본질이 전달되도록 돕습니다.
         </p>
@@ -35,7 +35,7 @@ export default function ServicePage() {
               title={pkg.name}
               description={pkg.features.join(" · ")}
               icon="💼"
-              footer={<div className="text-xs text-navy/60">{pkg.priceNote}.</div>}
+              footer={<div className="text-xs text-gray-500">{pkg.priceNote}.</div>}
             />
           ))}
         </div>
@@ -44,9 +44,9 @@ export default function ServicePage() {
       <Section title="FAQ">
         <div className="grid gap-4">
           {FAQS.map((f, i) => (
-            <div key={i} className="rounded-lg bg-white border border-navy/10 p-4">
-              <div className="font-semibold">Q. {f.q}</div>
-              <div className="text-sm text-navy/80 mt-1">A. {f.a}</div>
+            <div key={i} className="rounded-lg bg-[#0a0a0a] border border-[#1a1a1a] p-4">
+              <div className="font-semibold text-white">Q. {f.q}</div>
+              <div className="text-sm text-gray-400 mt-1">A. {f.a}</div>
             </div>
           ))}
         </div>
@@ -54,6 +54,4 @@ export default function ServicePage() {
     </>
   );
 }
-
-
 
