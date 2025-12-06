@@ -4,3 +4,4 @@ export default function ConstructionLayout({ children }: { children: React.React
   return <Layout>{children}</Layout>;
 }
 
+

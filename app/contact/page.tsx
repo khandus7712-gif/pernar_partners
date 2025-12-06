@@ -16,8 +16,26 @@ export default function ContactPage() {
       </Section>
 
       <Section title="문의 폼">
-        <div className="rounded-xl bg-[#0a0a0a] border border-[#1a1a1a] p-6">
+        <div className="rounded-xl bg-[#0a0a0a] border border-[#1a1a1a] p-6 relative">
           <ContactForm />
+          
+          {/* 캐릭터 추가 - 우측 하단 (데스크톱만 표시) */}
+          <div className="absolute bottom-4 right-4 hidden lg:flex items-center gap-3 text-sm text-gray-400 max-w-[280px]">
+            <img 
+              src="/character.png" 
+              alt="김대표" 
+              className="w-20 h-20 object-contain opacity-80 flex-shrink-0"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+            />
+            <p className="italic leading-relaxed">
+              사진 앞에서는 뚝딱거리지만,<br />
+              사장님 홍보 앞에서는<br />
+              프로페셔널한 김대표가<br />
+              직접 상담합니다.
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -36,4 +54,5 @@ export default function ContactPage() {
     </>
   );
 }
+
 

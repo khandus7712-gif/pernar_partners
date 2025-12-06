@@ -43,13 +43,32 @@ export default function AboutPage() {
       </Section>
 
       <Section title="대표 한 마디">
-        <div className="rounded-xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-[#334155] text-white p-8">
-          <p className="text-lg font-semibold">
-            "생각 말고, 실행하세요. 퍼나르가 알려드릴게요."
-          </p>
+        <div className="rounded-xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-[#334155] text-white p-8 relative overflow-hidden">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-shrink-0">
+              <img 
+                src="/character.png" 
+                alt="김대표 캐릭터" 
+                className="w-32 h-32 md:w-40 md:h-40 object-contain drop-shadow-lg"
+                onError={(e) => {
+                  // 이미지가 없을 경우 숨김 처리
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-lg font-semibold mb-3">
+                "생각 말고, 실행하세요. 퍼나르가 알려드릴게요."
+              </p>
+              <p className="text-sm text-gray-300 italic">
+                사진 앞에서는 뚝딱거리지만, 사장님 홍보 앞에서는 프로페셔널한 김대표가 직접 상담합니다.
+              </p>
+            </div>
+          </div>
         </div>
       </Section>
     </>
   );
 }
+
 

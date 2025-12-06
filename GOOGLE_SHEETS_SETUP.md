@@ -141,3 +141,4 @@ GOOGLE_PRIVATE_KEY
 - **"Unable to parse range"**
   → 시트 이름이 "문의"가 아니거나 시트가 존재하지 않음
 
+
